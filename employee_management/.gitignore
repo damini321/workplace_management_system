@@ -1,0 +1,36 @@
+# Django specific
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+staticfiles/
+
+# Ignore the virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Ignore environment variable files
+.env
+
+# Ignore IDE-specific files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.idea/
+*.swp
+
+# Ignore migrations and cache
+**/migrations/
+**/__pycache__/
+
+# Node.js specific (if applicable)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Git-specific
+*.orig

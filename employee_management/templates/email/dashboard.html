@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="background-color: #f4f4f4;">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Welcome, {{ user.name }}</h1>
+                <p>Email: {{ user.email }}</p>
+                <p>Role: {{ user.role }}</p>
+            </div>
+        </div>
+
+        <!-- Activity Log Section -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h3>Recent Activity Logs</h3>
+                <ul class="list-group">
+                    {% for log in activity_logs %}
+                    <li class="list-group-item">
+                        {{ log.activity }} - {{ log.timestamp|date:"M d, Y H:i" }}
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item">No activity logs found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h3>Engagement Metrics</h3>
+                <canvas id="loginChart" width="400" height="200"></canvas>
+                <p>Login Frequency (Last 30 Days): {{ login_frequency }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Example: Login frequency chart
+        const ctx = document.getElementById('loginChart').getContext('2d');
+        const loginChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Login Frequency'],
+                datasets: [{
+                    label: '# of Logins in the Last 30 Days',
+                    data: [{{ login_frequency }}],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
